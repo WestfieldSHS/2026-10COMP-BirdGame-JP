@@ -68,7 +68,7 @@ def update():
     bird.y = bird.y + 1
     # update pipes
     for pipe in pipeList:
-        pipe = pipe.x - 5
+        pipe.x = pipe.x - 5
         # bird hits bottom of screen
         if bird.y >HEIGHT:
             print('Game Over!')
