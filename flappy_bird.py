@@ -6,6 +6,7 @@ import sys
 # create constants
 WIDTH = 800
 HEIGHT = 600
+score = 0
 # print welcome
 print('The game is about to start!')
 print('Click the mouse to "flap" upwards')
@@ -64,17 +65,26 @@ def draw():
         pipe.draw()
 # update everything
 def update():
+    global score
     # update bird
     bird.y = bird.y + 1
     # update pipes
     for pipe in pipeList:
         pipe.x = pipe.x - 5
+        if pipe.x <= -44:
+            pipe.x = 800
+        if pipe.image == "top":
+            score = score + 1
         # bird hits bottom of screen
         if bird.y >HEIGHT:
             print('Game Over!')
+            print(score)
             sys.exit()
         # bird hits pipes
-
+    for pipe in pipeList:
+        if bird.colliderect(pipe):
+            print("Hit!")
+            #sys.exit()
 # moving
 def on_mouse_down():
     bird.y = bird.y - 50
