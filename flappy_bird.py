@@ -80,10 +80,7 @@ def update():
             print(score)
             sys.exit()
         # bird hits pipes
-        if bird.colliderect(pipe):
-            print("Hit!")
-            print(score)
-            sys.exit()
+
 # moving
 def on_mouse_down():
     bird.y = bird.y - 50
