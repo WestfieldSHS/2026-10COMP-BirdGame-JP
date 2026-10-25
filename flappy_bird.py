@@ -6,6 +6,7 @@ import sys
 WIDTH = 800
 HEIGHT = 600
 score = 0
+gameOver = False
 # print welcome
 print('The game is about to start!')
 print('Click the mouse to "flap" upwards')
@@ -17,7 +18,7 @@ background.x = 400
 background.y = 300
 # make bird
 bird = Actor("bird")
-bird.x = 100
+bird.x = 80
 bird.y = 300
 # make pipes
 pipeList = []
@@ -36,37 +37,43 @@ pipeList.append(bottomPipe1)
 
 
 topPipe2 = Actor("top")
-topPipe2.x = 632
-topPipe2.y = -200
+topPipe2.x = 732
+topPipe2.y = -210
 pipeList.append(topPipe2)
 
 bottomPipe2 = Actor("bottom")
-bottomPipe2.x = 632
-bottomPipe2.y = 560
+bottomPipe2.x = 732
+bottomPipe2.y = 660
 pipeList.append(bottomPipe2)
 
 topPipe3 = Actor("top")
-topPipe3.x = 898
+topPipe3.x = 998
 topPipe3.y = -120
 pipeList.append(topPipe3)
 
 bottomPipe3 = Actor("bottom")
-bottomPipe3.x = 898
+bottomPipe3.x = 998
 bottomPipe3.y = 710
 pipeList.append(bottomPipe3)
 # draw everything to screen
 def draw():
+    if gameOver == True:
+        screen.fill((0,0,0))
+        screen.draw.text(f"Game Over!",topleft=(10,10),fontsize = 30)
+        score = 0
+    if gameOver == False:
     # draw background
-    background.draw()
+        background.draw()
     # draw characters
-    bird.draw()
-    for pipe in pipeList:
-        pipe.draw()
+        bird.draw()
+        for pipe in pipeList:
+            pipe.draw()
 # update everything
 def update():
     global score
+    global gameOver
     # update bird
-    bird.y = bird.y + 1
+    bird.y = bird.y + 1.3
     # update pipes
     for pipe in pipeList:
         pipe.x = pipe.x - 5
@@ -76,13 +83,16 @@ def update():
             score = score + 1
         # bird hits bottom of screen
         if bird.y >HEIGHT:
-            print('Game Over!')
-            print(score)
-            sys.exit()
+            #print('Game Over!')
+            #print(score)
+            gameOver = True
         # bird hits pipes
-
+        if bird.colliderect(pipe):
+            print("Hit!")
+            print("Game Over!")
+            gameOver = True
 # moving
 def on_mouse_down():
-    bird.y = bird.y - 50
+    bird.y = bird.y - 60
 # runs everything
 pgzrun.go()
