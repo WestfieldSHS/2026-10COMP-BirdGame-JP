@@ -1,4 +1,7 @@
-# start modules
+#  flappy_bird.py does not contain any actual birds
+# flappy_bird.py may contain traces of cats
+# flappy_bird_random.py is haunted
+#  start modules
 from cmath import pi
 import pgzrun
 import sys
@@ -60,7 +63,7 @@ def draw():
     if gameOver == True:
         screen.fill((0,0,0))
         screen.draw.text(f"Game Over!",topleft=(10,10),fontsize = 30)
-        score = 0
+        #score = 0
     if gameOver == False:
     # draw background
         background.draw()
@@ -68,6 +71,7 @@ def draw():
         bird.draw()
         for pipe in pipeList:
             pipe.draw()
+        screen.draw.text(f"Score: {score}",topleft=(0,0),fontsize = 40)
 # update everything
 def update():
     global score
