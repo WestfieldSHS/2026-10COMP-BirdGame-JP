@@ -1,3 +1,4 @@
+# its november 2nd, halloween is SO last month
 # start modules
 from cmath import pi
 from random import *
