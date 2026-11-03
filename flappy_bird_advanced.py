@@ -1,11 +1,15 @@
 # oh dear the python files are multiplying
+# flappy bird advance sp
 #  start modules
 from cmath import pi
 import pgzrun
 import sys
+
+import pip
 # create constants
 WIDTH = 800
 HEIGHT = 600
+score = 0
 # print welcome
 print('The game is about to start!')
 print('Click the mouse to "flap" upwards')
@@ -17,24 +21,54 @@ background.x = 400
 background.y = 300
 # make bird
 bird = Actor("bird")
-bird.x = 160
+bird.x = 60
 bird.y = 300
 # make pipes
 class pipes():
     def __init__(self, x, center, gap):
-        Actor("top")
+        self.top = Actor("top")
+        self.top.y = center - ((HEIGHT/2)+(gap/2))
+        self.top.x = x
+        self.bottom = Actor("bottom")
+        self.bottom.y = center + ((HEIGHT/2)+(gap/2))
+        self.bottom.x = x
+
+pipeList = []
+pipe1 = pipes(266, 400, 220)
+pipeList.append(pipe1)
+pipe2 = pipes(532, 180, 220)
+pipeList.append(pipe2)
+pipe3 = pipes(798, 315, 220)
+pipeList.append(pipe3)
+
 # draw everything to screen
 def draw():
     # draw background
      background.draw()
     # draw characters
-     bird.draw()            
+     bird.draw()
+     for pipe in pipeList:
+         pipe.top.draw()
+         pipe.bottom.draw()
 # update everything
 def update():
+    global score
     # update bird
     bird.y = bird.y + 1.3
     # update pipes
-    
+    for pipe in pipeList:
+        pipe.top.x = pipe.top.x - 5
+        pipe.bottom.x = pipe.bottom.x - 5
+        if pipe.top.x <= -44:
+            pipe.top.x = 844
+        if pipe.bottom.x <= -44:
+            pipe.bottom.x = 844
+        if bird.colliderect(pipe.top):
+            print("Hit!")
+            sys.exit()
+        if bird.colliderect(pipe.bottom):
+            print("Hit!")
+            sys.exit()    
         # bird hits bottom of screen
     if bird.y >HEIGHT:
         print("Game Over!")
