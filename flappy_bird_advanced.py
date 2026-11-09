@@ -2,7 +2,7 @@
 # flappy bird advance sp
 #  start modules
 from cmath import pi
-from random import *
+from random import randint
 import pgzrun
 import sys
 
@@ -26,15 +26,20 @@ bird = Actor("bird")
 bird.x = 60
 bird.y = 300
 # make pipes
+def random_centre():
+    centre = randint(200,400)
+    return centre
+def random_gap():
+    gap = randint(160,260)
+    return gap
+
 class pipes():
-    def __init__(self, x, center, gap):
-        #gap = randint(160,260)
-        #ycenter = randint(-250 + 2 / HEIGHT + 2 / gap)
+    def __init__(self, x, centre, gap):        
         self.top = Actor("top")
-        self.top.y = center - ((HEIGHT/2)+(gap/2))
+        self.top.y = centre - ((HEIGHT/2)+(gap/2))
         self.top.x = x
         self.bottom = Actor("bottom")
-        self.bottom.y = center + ((HEIGHT/2)+(gap/2))
+        self.bottom.y = centre + ((HEIGHT/2)+(gap/2))
         self.bottom.x = x
 
 pipeList = []
@@ -44,7 +49,6 @@ pipe2 = pipes(532, 180, 220)
 pipeList.append(pipe2)
 pipe3 = pipes(798, 315, 220)
 pipeList.append(pipe3)
-
 # draw everything to screen
 def draw():
      if gameOver == True:
@@ -63,6 +67,7 @@ def draw():
 def update():
     global score
     global gameOver
+    print(score)
     # update bird
     bird.y = bird.y + 1.3
     # update pipes
@@ -71,18 +76,19 @@ def update():
         pipe.bottom.x = pipe.bottom.x - 5
         if pipe.top.x <= -44:
             score = score + 1
-            pipe.top.x = 844
-        if pipe.bottom.x <= -44:
-            score = score + 1
-            pipe.bottom.x = 844
+            #pipe.top.x = 844
+            #pipe.bottom.x = 844
+            pipeList.remove(pipe)
+            pipe = pipes(844,random_centre(),random_gap())
+            pipeList.append(pipe)
         if bird.colliderect(pipe.top):
             print("Hit!")
-            #print(score)
+           # print(score)
             gameOver = True
             #sys.exit()
         if bird.colliderect(pipe.bottom):
             print("Hit!")
-            #print(score)
+           # print(score)
             gameOver = True
             #sys.exit()    
         # bird hits bottom of screen
