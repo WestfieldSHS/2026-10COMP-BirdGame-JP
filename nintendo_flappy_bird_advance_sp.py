@@ -1,11 +1,9 @@
 # oh dear the python files are multiplying
-# flappy bird advance sp
 #  start modules
 from cmath import pi
 from random import randint
 import pgzrun
 import sys
-
 import pip
 # create constants
 WIDTH = 800
@@ -52,10 +50,11 @@ pipeList.append(pipe3)
 # draw everything to screen
 def draw():
      if gameOver == True:
-             screen.fill((0,0,0))
-             screen.draw.text(f"Game Over!",topleft=(10,10),fontsize = 60)
-             score = 0
+        screen.fill((0,0,0))
+        screen.draw.text(f"Game Over!",topleft=(10,10),fontsize = 60)
+        #score = 0
      if gameOver == False:
+        screen.draw.text(f"Score:{score}",topleft=(10,10),fontsize=60)
     # draw background
         background.draw()
     # draw characters
@@ -67,36 +66,38 @@ def draw():
 def update():
     global score
     global gameOver
-    print(score)
+    #print(score)
     # update bird
     bird.y = bird.y + 1.3
     # update pipes
-    for pipe in pipeList:
-        pipe.top.x = pipe.top.x - 5
-        pipe.bottom.x = pipe.bottom.x - 5
-        if pipe.top.x <= -44:
-            score = score + 1
-            #pipe.top.x = 844
-            #pipe.bottom.x = 844
-            pipeList.remove(pipe)
-            pipe = pipes(844,random_centre(),random_gap())
-            pipeList.append(pipe)
-        if bird.colliderect(pipe.top):
-            print("Hit!")
-           # print(score)
+    if gameOver == False:
+        for pipe in pipeList:
+            pipe.top.x = pipe.top.x - 5
+            pipe.bottom.x = pipe.bottom.x - 5
+            if pipe.top.x <= -44:
+                score = score + 1
+                print(f'Score: {score}')
+                #pipe.top.x = 844
+                #pipe.bottom.x = 844
+                pipeList.remove(pipe)
+                pipe = pipes(844,random_centre(),220)
+                pipeList.append(pipe)
+            if bird.colliderect(pipe.top):
+                print("Hit!")
+            # print(score)
+                gameOver = True
+                #sys.exit()
+            if bird.colliderect(pipe.bottom):
+                print("Hit!")
+            # print(score)
+                gameOver = True
+                #sys.exit()    
+            # bird hits bottom of screen
+        if bird.y >HEIGHT:
+            print("Game Over!")
             gameOver = True
             #sys.exit()
-        if bird.colliderect(pipe.bottom):
-            print("Hit!")
-           # print(score)
-            gameOver = True
-            #sys.exit()    
-        # bird hits bottom of screen
-    if bird.y >HEIGHT:
-        print("Game Over!")
-        gameOver = True
-        #sys.exit()
-        # bird hits pipes
+            # bird hits pipes
 
 # moving
 def on_mouse_down():
