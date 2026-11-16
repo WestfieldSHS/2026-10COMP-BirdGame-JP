@@ -19,16 +19,17 @@ print('Good luck and have fun!')
 background = Actor("bg")
 background.x = 400
 background.y = 300
+gameoverscreen = Actor("gos")
 # make bird
 bird = Actor("bird")
 bird.x = 60
 bird.y = 300
 # make pipes
 def random_centre():
-    centre = randint(200,400)
+    centre = randint(210,400)
     return centre
 def random_gap():
-    gap = randint(160,260)
+    gap = randint(180,280)
     return gap
 
 class pipes():
@@ -50,11 +51,10 @@ pipeList.append(pipe3)
 # draw everything to screen
 def draw():
      if gameOver == True:
-        screen.fill((0,0,0))
-        screen.draw.text(f"Game Over!",topleft=(10,10),fontsize = 60)
+        gameoverscreen.draw()
+        screen.draw.text(f"Game Over!",topleft=(10,10),fontsize = 60,color ="black")
         #score = 0
      if gameOver == False:
-        screen.draw.text(f"Score:{score}",topleft=(10,10),fontsize=60)
     # draw background
         background.draw()
     # draw characters
@@ -62,6 +62,7 @@ def draw():
         for pipe in pipeList:
          pipe.top.draw()
          pipe.bottom.draw()
+        screen.draw.text(f"Score: {score}",topleft=(10,10),fontsize=50)
 # update everything
 def update():
     global score
