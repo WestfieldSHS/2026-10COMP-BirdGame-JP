@@ -1,4 +1,6 @@
-# oh dear the python files are multiplying
+# game may not contain any birds
+# game may contain traces of cats
+# flappy bird advance sp can also play gameboy and gameboy colour games
 #  start modules
 from cmath import pi
 from random import randint
@@ -21,12 +23,20 @@ background.x = 400
 background.y = 300
 gameoverscreen = Actor("gos")
 # make bird
-bird = Actor("bird")
+rand_cat = randint(1,4)
+if rand_cat == 2:
+    bird = Actor("ocat")
+elif rand_cat == 3:
+    bird = Actor("calcat")
+elif rand_cat == 4:
+    bird = Actor("ravencat")        
+else:    
+    bird = Actor("bird")
 bird.x = 60
 bird.y = 300
 # make pipes
 def random_centre():
-    centre = randint(210,400)
+    centre = randint(210,410)
     return centre
 def random_gap():
     gap = randint(180,280)
@@ -52,7 +62,7 @@ pipeList.append(pipe3)
 def draw():
      if gameOver == True:
         gameoverscreen.draw()
-        screen.draw.text(f"Game Over!",topleft=(10,10),fontsize = 60,color ="black")
+        screen.draw.text(f"Game Over!",topleft=(10,10),fontsize = 80,color ="darkblue")
         #score = 0
      if gameOver == False:
     # draw background

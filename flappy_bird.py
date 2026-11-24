@@ -1,6 +1,4 @@
-#  flappy_bird.py does not contain any actual birds
-# flappy_bird.py may contain traces of cats
-# flappy_bird_random.py is haunted
+#  this is the intermediate version of the game, go to nintendo_flappy_bird_advance_sp for the finished version
 #  start modules
 from cmath import pi
 import pgzrun
